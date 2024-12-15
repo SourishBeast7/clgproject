@@ -7,7 +7,7 @@ import {promises as fs} from 'fs'
 
 const MainPage = async () => {
   const data = await fs.readFile(process.cwd() + '/app/components/MainPage/state&city.json', 'utf8')
-  console.log(data)
+  // console.log(data)
   return (
     <div className='bg-slate-400 min-h-screen'>
       <div className='flex py-3 px-4 bg-rose-800'>
