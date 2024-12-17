@@ -6,7 +6,7 @@ import { promises as fs } from 'fs'
 import img from "/public/red_blood.jpg"
 
 const MainPage = async () => {
-  let file = await fs.readFile(process.cwd() + '/app/api/data/states/data.json', 'utf-8')
+  let file = await fs.readFile(process.cwd() + '/app/api/data/data.json', 'utf-8')
   let data = JSON.parse(file)
   const styling = {
     backgroundImage: `url(${img.src})`,
