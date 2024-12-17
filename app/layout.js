@@ -13,8 +13,8 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "NewsBuzz - Fake news detector",
-  description: "NewsBuzz is an application to detect fake news",
+  title: "BloodFinder",
+  description: "",
 };
 
 export default function RootLayout({ children }) {

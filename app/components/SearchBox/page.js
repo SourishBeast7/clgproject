@@ -7,13 +7,13 @@ export default function Search(data) {
 
   const stateRef = useRef("")
   const districtRef = useRef("")
+  const bloodRef = useRef("")
   const [District, setDistrict] = useState([])
   let states = []
   const handleChange = () => {
     // if(stateRef.current.value !== "--Select State or Union Territory--" ) return; 
     let s = stateRef.current.value
-    setDistrict(data.data[s])
-    District.sort()
+    setDistrict(data.data[s].sort())
   }
   let bloodTypes = ["A+","A-","B+","B-","AB+","AB-","O+","O-"]
   
@@ -22,13 +22,8 @@ export default function Search(data) {
   }
   states.sort()
 
-  // for(let i of data.data){
-  //   if(stateRef.current.value===i){
-  //       districts = i;
-  //   }
-  // }
   const searchBloodBank = () => {
-    if (stateRef.current.value === "--Select State or Union Territory--" || districtRef.current.value === "--Select District--") {
+    if (stateRef.current.value === "--Select State or Union Territory--" || districtRef.current.value === "--Select District--" || bloodRef.current.value === "--Select Blood Type--") {
       alert("Enter details correctly")
       return;
     }
@@ -48,7 +43,7 @@ export default function Search(data) {
         </select>
       </div>
       <div className='flex flex-col'>
-        <select className='text-black mx-auto mt-5 font-semibold p-2 rounded-sm'>
+        <select ref={bloodRef} className='text-black mx-auto mt-5 font-semibold p-2 rounded-sm'>
           <option className='text-center' key={"Null"} value={null}>--Select Blood Type--</option>
           {bloodTypes.map((e)=>{return <option key={e} value={e}>{e}</option>})}
         </select>
