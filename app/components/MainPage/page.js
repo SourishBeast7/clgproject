@@ -22,7 +22,7 @@ const MainPage = async () => {
           <Navbar />
         </div>
         <main className='min-h-screen min-w-full'>
-          <div className='input-box border-4 rounded-lg overflow-hidden border-blue-600 m-auto mt-16 w-[50vw] h-[59vh] bg-red-900'>
+          <div className='input-box  rounded-lg overflow-hidden m-auto mt-16 w-[50vw] h-[59vh]'>
             <SearchBox data={data} />
           </div>
         </main>

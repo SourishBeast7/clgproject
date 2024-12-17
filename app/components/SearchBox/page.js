@@ -10,8 +10,10 @@ export default function Search(data) {
   const [District, setDistrict] = useState([])
   let states = []
   const handleChange = () => {
+    // if(stateRef.current.value !== "--Select State or Union Territory--" ) return; 
     let s = stateRef.current.value
     setDistrict(data.data[s])
+    District.sort()
   }
   let bloodTypes = ["A+","A-","B+","B-","AB+","AB-","O+","O-"]
   
@@ -19,7 +21,6 @@ export default function Search(data) {
     states.push(i)
   }
   states.sort()
-  District.sort()
 
   // for(let i of data.data){
   //   if(stateRef.current.value===i){
@@ -43,7 +44,7 @@ export default function Search(data) {
         </select>
         <select onClick={handleChange} ref={districtRef} className='p-2 w-[10vw] font-semibold text-black rounded-sm mx-2'>
           <option>--Select District--</option>
-          {District.map((item) => { return <option key={item} value={item} >{item}</option> })}
+          {District?.map((item) => {return <option key={item} value={item} >{item}</option> })}
         </select>
       </div>
       <div className='flex flex-col'>
