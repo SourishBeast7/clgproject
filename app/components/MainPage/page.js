@@ -3,7 +3,7 @@ import Navbar from '../Navbar/page'
 import Footer from '../Footer/page'
 import SearchBox from '../SearchBox/page'
 import { promises as fs } from 'fs'
-import img from "/public/red_blood.jpg"
+import img from "/public/red.gif"
 
 const MainPage = async () => {
   let file = await fs.readFile(process.cwd() + '/app/api/data/data.json', 'utf-8')
@@ -13,11 +13,11 @@ const MainPage = async () => {
     width: "100%",
     height: "100%",
     backgroundRepeat: "no-repeat",
-    backgroundSize: "cover"
+    backgroundSize: "cover",
   }
   return (
     <div className='min-w-full min-h-screen'>
-      <div style={styling}>
+      <div style={styling} >
         <div className='flex py-3 px-4 bg-rose-800'>
           <Navbar />
         </div>
