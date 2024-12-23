@@ -3,7 +3,6 @@ import Navbar from '../Navbar/page'
 import Footer from '../Footer/page'
 import SearchBox from '../SearchBox/page'
 import { promises as fs } from 'fs'
-import Results from '../Results/page'
 import img from "/public/red_blood.jpg"
 
 const MainPage = async () => {
@@ -26,7 +25,6 @@ const MainPage = async () => {
           <div className='input-box overflow-hidden m-auto mt-16 w-[50vw] h-[43vh]'>
             <SearchBox data={data}/>
           </div>
-          <Results/>
         </main>
       </div>
       <Footer />

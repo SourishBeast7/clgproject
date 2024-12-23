@@ -14,7 +14,7 @@ const geistMono = localFont({
 
 export const metadata = {
   title: "BloodFinder",
-  description: "",
+  description: "BloodFinder helps people to find the bloodbanks in their city according to their desired blood type",
 };
 
 export default function RootLayout({ children }) {

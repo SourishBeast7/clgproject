@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server"
 import { MongoClient } from "mongodb"
-import { promises as fs } from 'fs'
+import { redirect } from "next/navigation";
+
 export async function GET(request) {
   const client = new MongoClient(process.env.MONGO_URI)
+  const database = client.db('BloodFinder');
+  const banks = database.collection('bloodBanks');
+  const query = {
+    state: request.nextUrl.searchParams.get("state"),
+    dis: request.nextUrl.searchParams.get("dis"),
+    bltype: request.nextUrl.searchParams.get("bltype")
+  }
   try {
-    const database = client.db('BloodFinder');
-    const banks = database.collection('bloodBanks');
-    const query =  {
-      state:request.nextUrl.searchParams.get("state"),
-      dis:request.nextUrl.searchParams.get("dis"),
-      bltype:request.nextUrl.searchParams.get("bltype")
-    }
-    console.log(query,typeof query)
+
     const results = await banks.aggregate([
       {
         $match: {
@@ -25,15 +26,14 @@ export async function GET(request) {
       {
         $project: {
           _id: 1, // Optional: Exclude _id from the results
-          name:1,
+          name: 1,
           state: 1,
           district: 1,
           bloodtype: 1 // Only include the fields you need
         }
       }
     ]).toArray()
-    await fs.writeFile(process.cwd()+'/app/api/data/result.json',JSON.stringify(results))
-    return NextResponse.json({success:true,results})
+    return NextResponse.json({ success: true, results })
   }
   catch (err) {
     console.log(err)
