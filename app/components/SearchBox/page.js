@@ -22,7 +22,7 @@ export default function Search({ data }) {
   };
 
   const searchBloodBank = async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
+    event.preventDefault(); 
 
     const state = stateRef.current.value;
     const district = districtRef.current.value;
@@ -35,8 +35,6 @@ export default function Search({ data }) {
     
     const encodedState = encodeURIComponent(state);
     const query = `state=${encodedState}&dis=${district}&bltype=${bloodType}`;
-
-    // Navigate to the results page with query parameters
     router.push(`/Results?${query}`);
   };
 
