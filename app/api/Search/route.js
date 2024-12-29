@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server"
 import { MongoClient } from "mongodb"
-import { redirect } from "next/navigation";
 
 export async function GET(request) {
   const client = new MongoClient(process.env.MONGO_URI)

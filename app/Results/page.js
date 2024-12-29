@@ -1,38 +1,55 @@
-// components/Results.js
-"use client"
-import { useRef } from 'react';
-import React from 'react';
-const Results = () => {
-  const ref = useRef()
-  // if(data===null || data===undefined || data===""){
-  //   console.log(ref.current.style.display)
-  //   return (<div>Welcome</div>)
-  // }
+"use client";
+import { useEffect, useState } from "react";
+
+export default function Results() {
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const state = params.get("state");
+    const dis = params.get("dis");
+    const bltype = params.get("bltype");
+
+    if (state && dis && bltype) {
+      fetchData(state, dis, bltype);
+    } else {
+      console.error("Missing query parameters");
+      setLoading(false);
+    }
+  }, []);
+
+  const fetchData = async (state, district, bloodType) => {
+    try {
+      const encodedState = encodeURIComponent(state)
+      const encodedBloodType = encodeURIComponent(bloodType).replace("%20", "%2B");
+      const response = await fetch(
+        `/api/Search?state=${encodedState}&dis=${district}&bltype=${encodedBloodType}`
+      );
+      const result = await response.json();
+      setData(result);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  if (loading) return <p>Loading...</p>;
+  if (!data) return <p>No results found.</p>;
+
   return (
-    <div ref={ref} className="overflow-x-auto mx-4">
-      <h1 className='text-black text-center text-[70px] bg-green-500 rounded-t-md'>BloodBanks</h1>
-      <table className="min-w-full border border-gray-300 rounded-md shadow-md">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="py-3 px-4 text-center text-sm font-semibold text-gray-700">Name</th>
-            <th className="py-3 px-4 text-center text-sm font-semibold text-gray-700">State</th>
-            <th className="py-3 px-4 text-center text-sm font-semibold text-gray-700">District</th>
-            <th className="py-3 px-4 text-center text-sm font-semibold text-gray-700">Blood Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* {data?.map((obj,index) => (
-            <tr key={index} className="border-t border-gray-200 bg-gray-50">
-              <td className="py-3 px-4 text-center text-sm text-gray-700">{obj.name}</td>
-              <td className="py-3 px-4 text-center text-sm text-gray-700">{obj.state}</td>
-              <td className="py-3 px-4 text-center text-sm text-gray-700">{obj.district}</td>
-              <td className="py-3 px-4 text-center text-sm text-gray-700">{obj.bloodtype}</td>
-            </tr>
-          ))} */}
-        </tbody>
-      </table>
+    <div>
+      <h1>Blood Availability Results</h1>
+      <ul>
+        {data.results.map((item) => {
+          const bloodTypes = Array.isArray(item.bloodtype) ? item.bloodtype.join(", ") : item.bloodtype;
+          return (
+            <li key={item.id}>
+              {item.name} - {item.state} - {bloodTypes}
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
-};
-
-export default Results;
+}
