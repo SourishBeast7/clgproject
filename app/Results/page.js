@@ -36,7 +36,6 @@ export default function Results() {
   };
   if (loading) return <p>Loading...</p>;
   if (data.results[0] === undefined) {
-    console.log("hi")
     return <p>No results found.</p>
   }
   else {
