@@ -35,21 +35,25 @@ export default function Results() {
     }
   };
   if (loading) return <p>Loading...</p>;
-  if (!data) return <p>No results found.</p>;
-
-  return (
-    <div>
-      <h1>Blood Availability Results</h1>
-      <ul>
-        {data.results.map((item) => {
-          const bloodTypes = Array.isArray(item.bloodtype) ? item.bloodtype.join(", ") : item.bloodtype;
-          return (
-            <li key={item.id}>
-              {item.name} - {item.state} - {bloodTypes}
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
+  if (data.results[0] === undefined) {
+    console.log("hi")
+    return <p>No results found.</p>
+  }
+  else {
+    return (
+      <div>
+        <h1>Blood Availability Results</h1>
+        <ul>
+          {data.results.map((item) => {
+            const bloodTypes = Array.isArray(item.bloodtype) ? item.bloodtype.join(", ") : item.bloodtype;
+            return (
+              <li key={item.id}>
+                {item.name} - {item.state} - {bloodTypes}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
 }

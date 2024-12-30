@@ -32,7 +32,12 @@ export async function GET(request) {
         }
       }
     ]).toArray()
-    return NextResponse.json({ success: true, results })
+    if (results) {
+      return NextResponse.json({ success: true,results})
+    }
+    else{
+      return NextResponse.json({success: false,results:"No data found"})
+    }
   }
   catch (err) {
     console.log(err)

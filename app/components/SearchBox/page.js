@@ -16,8 +16,6 @@ export default function Search({ data }) {
     const selectedState = stateRef.current.value;
     if (selectedState in data) {
       setDistricts(data[selectedState].sort());
-    } else {
-      setDistricts([]);
     }
   };
 
@@ -50,7 +48,7 @@ export default function Search({ data }) {
           className="text-black font-semibold p-2 rounded-sm"
         >
           <option value="">--Select State or Union Territory--</option>
-          {states?.map((state) => (
+          {states.map((state) => (
             <option key={state} value={state}>
               {state}
             </option>
@@ -61,7 +59,7 @@ export default function Search({ data }) {
           className="p-2 w-[10vw] font-semibold text-black rounded-sm mx-2"
         >
           <option value="">--Select District--</option>
-          {districts?.map((district) => (
+          {districts.map((district) => (
             <option key={district} value={district}>
               {district}
             </option>
