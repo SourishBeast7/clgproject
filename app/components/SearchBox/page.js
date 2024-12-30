@@ -1,21 +1,30 @@
 "use client";
-import { useRef, useState } from "react";
-import { useRouter } from "next/navigation"; // For client-side navigation
-
-export default function Search({ data }) {
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+export default function Search() {
   const stateRef = useRef("");
   const districtRef = useRef("");
   const bloodRef = useRef("");
   const [districts, setDistricts] = useState([]);
-  const router = useRouter(); // Next.js router for navigation
-
+  const [Data, setData] = useState({})
+  useEffect(()=>{
+    // FetchData()
+    fetch("/api/data").then((res)=>{
+      return res.json()
+    }).then((data)=>{
+      setData(data.data)
+    }).catch((e)=>{
+      console.log(e)
+    })
+  },[])
+  const router = useRouter();
   const bloodTypes = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
-  const states = Object.keys(data).sort();
+  const states = Object.keys(Data).sort();
 
   const handleStateChange = () => {
     const selectedState = stateRef.current.value;
-    if (selectedState in data) {
-      setDistricts(data[selectedState].sort());
+    if (selectedState in Data) {
+      setDistricts(Data[selectedState].sort());
     }
   };
 
@@ -35,7 +44,6 @@ export default function Search({ data }) {
     const query = `state=${encodedState}&dis=${district}&bltype=${bloodType}`;
     router.push(`/Results?${query}`);
   };
-
   return (
     <form onSubmit={searchBloodBank}>
       <h2 className="pt-[6vh] text-[50px] text-black font-extrabold text-center">

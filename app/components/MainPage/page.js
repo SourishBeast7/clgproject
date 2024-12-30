@@ -2,12 +2,9 @@ import React from 'react'
 import Navbar from '../Navbar/page'
 import Footer from '../Footer/page'
 import SearchBox from '../SearchBox/page'
-import { promises as fs } from 'fs'
 import img from "/public/red_blood.jpg"
 
 const MainPage = async () => {
-  const file = await fs.readFile(process.cwd() + '/app/api/data/data.json', 'utf-8')
-  const data = JSON.parse(file)
   const styling = {
     backgroundImage: `url(${img.src})`,
     width: "100%",
@@ -23,7 +20,7 @@ const MainPage = async () => {
         </div>
         <main className='min-h-screen min-w-full'>
           <div className='input-box overflow-hidden m-auto mt-16 w-[50vw] h-[43vh]'>
-            <SearchBox data={data}/>
+            <SearchBox/>
           </div>
         </main>
       </div>
