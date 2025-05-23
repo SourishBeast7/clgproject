@@ -12,7 +12,7 @@ export default function Search() {
     fetch("/api/data").then((res)=>{
       return res.json()
     }).then(async (data)=>{
-      setData(await (data.DATA))
+      setData(await (data))
     }).catch((e)=>{
       console.log(e)
     })

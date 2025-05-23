@@ -1,4 +1,4 @@
-{
+export default const data = {
     "Andaman and Nicobar Islands": [
         "Port Blair"
     ],
