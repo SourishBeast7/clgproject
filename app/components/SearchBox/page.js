@@ -87,7 +87,7 @@ export default function Search() {
           ))}
         </select>
         <button
-          className="bg-lime-600 font-bold rounded-md mt-3 p-2 mx-auto"
+          className="bg-lime-600 font-bold rounded-md my-3 p-2 mx-auto"
           type="submit"
         >
           Submit
